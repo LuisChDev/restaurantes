@@ -37,6 +37,3 @@ data = data.groupby([data["fecha"], data["hora"]]).sum()
 # del dataset
 data = data.reset_index(level="hora")
 data = data.groupby(data.hora).mean()
-
-
-# se calculan los márgenes de confianza para este promedio
