@@ -1,0 +1,1 @@
+'select  categories.CategoryName, Products.ProductName, sales.Quantity, sales.SalesDate from sales, Products, categories where sales.ProductID = Products.ProductID AND categories.CategoryID = Products.CategoryID
