@@ -50,7 +50,7 @@ def gananciasSemana(quanOrPrice):
 def gananciasDiaSemana(quanOrPrice):
     data = dataset()
     data = limpiandoDataset(data)
-    data = agruparDatosSUM(data, ["dia"],"")
+    data = agruparDatosSUM(data, ["fecha", "dia"],"")
     if quanOrPrice:
         plt.scatter(data.dia, data.Quantity)
     else:
