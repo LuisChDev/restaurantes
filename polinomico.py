@@ -3,8 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from scikit_learn import cross_validation
+from sklearn.model_selection import train_test_split, cross_val_score
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
@@ -46,7 +45,7 @@ pipeline = Pipeline([("polynomial_features", polynomial_features),
                      ("linear_regression", linear_regression)])
 pipeline.fit(Xtrain, Ytrain)
 
-scores = cross_validation.cross_val_score(
+scores = cross_val_score(
     pipeline, X, Y, scoring="mean_squared_error", cv=10)
 
 plt.plot(Xtest, pipeline.predict(Xtest))
