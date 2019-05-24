@@ -8,11 +8,9 @@ import sqlite3
 
 def dataset():
     bd = sqlite3.connect("./salesdb/salesDB_grocery_market/restaurante.sqlite")
-    print('conexion exitosa!')
     dataB = bd.cursor()
     allData = dataB.execute('select categories.CategoryName, Products.ProductName, sales.Quantity, Products.Price,(sales.Quantity*Products.Price), sales.SalesDate from sales, Products, categories where sales.ProductID = Products.ProductID AND categories.CategoryID = Products.CategoryID LIMIT 100000')
     products = []
-    print('leyendo datos!')
     for row in allData:
         products.append({
             'Category': row[0],
@@ -23,7 +21,6 @@ def dataset():
             'SalesDate': row[5]
         })
     data = pd.DataFrame(data=products)
-    print('lectura exitosa!')
     return data
 
 
@@ -31,12 +28,9 @@ def limpiandoDataset(data):
 
     # convirtiendo la columna de fecha en datetime
     data = data.sort_values("SalesDate")
-    print('organizando datos')
     data = data[data["SalesDate"] != 'NULL']
-    print('eliminando datos nulos')
     data["SalesDate"] = pd.to_datetime(
         data["SalesDate"], format="%Y-%m-%d %H:%M:%S.%f")
-    print('fechas parseadas')
     # creando columnas de fecha y hora
     data["fecha"] = data["SalesDate"].dt.date
     data["hora"] = data["SalesDate"].dt.hour
@@ -48,7 +42,6 @@ def limpiandoDataset(data):
 
 def agruparDatosSUM(data, campos, campo):
     data = data.groupby(campos).sum()
-    print('datos agrupados')
     # data = data.groupby([ data["hora"], data["ProductID"]]).sum()
 
     # se promedia el total de compras por cada hora del día en todos los días
@@ -63,7 +56,6 @@ def agruparDatosSUM(data, campos, campo):
 
 def agruparDatosMean(data, campos, campo):
     data = data.groupby(campos).mean()
-    print('datos agrupados')
     # data = data.groupby([ data["hora"], data["ProductID"]]).sum()
 
     # se promedia el total de compras por cada hora del día en todos los días
@@ -80,10 +72,10 @@ def agruparDatosMean(data, campos, campo):
 if __name__ == "__main__":
 
     # dataset 1 - productos vendidos en un dia
-    # data1 = dataset()
-    # data1 = limpiandoDataset(data1)
-    # data1 = agruparDatosSUM(data1, ["Product", "dia", "fecha", "Price"],"")
-    # print(data1)
+    data1 = dataset()
+    data1 = limpiandoDataset(data1)
+    data1 = agruparDatosSUM(data1, ["Product", "dia", "fecha", "Price"],"")
+    print(data1)
 
     # dataset 2 - cantidad de un cierto producto vendido en cierta semana
     # data2 = dataset()
@@ -110,7 +102,7 @@ if __name__ == "__main__":
     # print(data5)
 
     # dataset 6 - ganancias generada por los categorias
-    data6 = dataset()
-    data6 = limpiandoDataset(data6)
-    data6 = agruparDatosSUM(data6, ["Category"], "")
-    print(data6)
+    #data6 = dataset()
+    #data6 = limpiandoDataset(data6)
+    #data6 = agruparDatosSUM(data6, ["Category"], "")
+    #print(data6)
