@@ -4,7 +4,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn import cross_validation
+from scikit_learn import cross_validation
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score
