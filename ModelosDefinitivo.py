@@ -20,6 +20,7 @@ from randomForest import (dataset, limpiandoDataset, agruparDatosSUM,
 def gananciasDiaSemana(quanOrPrice):
     data = dataset()
     data = limpiandoDataset(data)
+
     data = agruparDatosSUM(data, ["fecha", "dia"], "")
     return data
 
@@ -55,7 +56,7 @@ results = []
 names = []
 scoring = 'r2'
 for name, model in modelos:
-    kfold = ms.KFold(n_splits=10, random_state=semilla)
+    kfold = ms.KFold(n_splits=3, random_state=semilla)
     cv_results = ms.cross_val_score(model, X, Y, cv=kfold, scoring=scoring)
     results.append(cv_results)
     names.append(name)

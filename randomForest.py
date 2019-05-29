@@ -9,7 +9,7 @@ import sqlite3
 def dataset():
     bd = sqlite3.connect("./salesdb/salesDB_grocery_market/restaurante.sqlite")
     dataB = bd.cursor()
-    allData = dataB.execute('select categories.CategoryName, Products.ProductName, sales.Quantity, Products.Price,(sales.Quantity*Products.Price), sales.SalesDate from sales, Products, categories where sales.ProductID = Products.ProductID AND categories.CategoryID = Products.CategoryID LIMIT 100000')
+    allData = dataB.execute('select categories.CategoryName, Products.ProductName, sales.Quantity, Products.Price,(sales.Quantity*Products.Price), sales.SalesDate from sales, Products, categories where sales.ProductID = Products.ProductID AND categories.CategoryID = Products.CategoryID LIMIT 500000')
     products = []
     for row in allData:
         products.append({
